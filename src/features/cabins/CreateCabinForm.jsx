@@ -9,12 +9,13 @@ import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 import { useCreateCabin } from "./useCreateCabin";
 import { useUpdateCabin } from "./useUpdateCabin";
+// import { getImageNameFromUrl } from "../../utils/helpers";
 
 function CreateCabinForm({ cabinToEdit = {} }) {
   const { isCreating, createCabin } = useCreateCabin();
   const { isUpdate, updateCabin } = useUpdateCabin();
   const isWorking = isCreating || isUpdate;
-  
+
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
 
@@ -22,7 +23,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     defaultValues: isEditSession ? editValues : {},
   });
   const { errors } = formState;
-  
+  // const currentImage = getImageNameFromUrl(editValues.image);
 
   function onSubmit(data) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
