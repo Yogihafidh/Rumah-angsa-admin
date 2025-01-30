@@ -11,7 +11,7 @@ import { useCreateCabin } from "./useCreateCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
-
+import Menus from "../../ui/Menus";
 
 const Img = styled.img`
   display: block;
@@ -41,7 +41,7 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabin }) {
-  const { isCreating, createCabin } = useCreateCabin();
+  const { createCabin } = useCreateCabin();
   const { isDeleting, deleteCabin } = useDeleteCabin();
 
   const {
@@ -73,25 +73,32 @@ function CabinRow({ cabin }) {
       <Price>{formatCurrency(regularPrice)}</Price>
       <Discount>{formatCurrency(discount)}</Discount>
       <div>
-        <button onClick={() => handleDuplicate()} disabled={isCreating}>
-          <HiSquare2Stack />
-        </button>
-
         <Modal>
-          <Modal.Open opens="edit">
-            <button>
-              <HiPencil />
-            </button>
-          </Modal.Open>
+          <Menus.Menu>
+            <Menus.Toggle />
+            <Menus.List>
+              <Menus.Button
+                icon={<HiSquare2Stack />}
+                onClick={() => handleDuplicate()}
+              >
+                {" "}
+                Duplicate
+              </Menus.Button>
+
+              <Modal.Open opens="edit">
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+              </Modal.Open>
+
+              <Modal.Open opens="delete">
+                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+          </Menus.Menu>
+
           <Modal.Window name="edit">
             <CreateCabinForm cabinToEdit={cabin} />
           </Modal.Window>
 
-          <Modal.Open opens="delete">
-            <button>
-              <HiTrash />
-            </button>
-          </Modal.Open>
           <Modal.Window name="delete">
             <ConfirmDelete
               resourceName="Cabins"
