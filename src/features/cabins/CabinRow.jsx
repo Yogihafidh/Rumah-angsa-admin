@@ -71,12 +71,12 @@ function CabinRow({ cabin }) {
       <Cabin>{name}</Cabin>
       <div>Fits up to {maxCapacity} guests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>{formatCurrency(discount)}</Discount>
+      <Discount>{discount ? formatCurrency(discount) : "-"}</Discount>
       <div>
         <Modal>
           <Menus.Menu>
-            <Menus.Toggle />
-            <Menus.List>
+            <Menus.Toggle id={cabinId} />
+            <Menus.List id={cabinId}>
               <Menus.Button
                 icon={<HiSquare2Stack />}
                 onClick={() => handleDuplicate()}
