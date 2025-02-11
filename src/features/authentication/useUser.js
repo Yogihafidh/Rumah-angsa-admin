@@ -11,6 +11,7 @@ export function useUser() {
       toast.error("Provided email or password are incorrect");
     },
   });
+  
 
   return { user, isLoading, isAuthenticated: user?.role === "authenticated" };
 }
