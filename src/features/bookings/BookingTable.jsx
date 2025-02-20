@@ -2,12 +2,12 @@ import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
-import { useBooking } from "./useBookings";
+import { useAllBooking } from "./useBookings";
 import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
-  const { bookings = [], isLoading, count } = useBooking();
+  const { bookings = [], isLoading, count } = useAllBooking();
   if (isLoading) return <Spinner />;
 
   if (!bookings.length) return <Empty resourceName={"bookings"} />;
