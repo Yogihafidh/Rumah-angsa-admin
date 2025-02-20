@@ -3,10 +3,10 @@ import Pagination from "../../ui/Pagination";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import GuestRow from "./GuestRow";
-import { useGuests } from "./useGuests";
+import { useAllGuest } from "./useGuests";
 
 function GuestTable() {
-  const { isLoading, guests = [] } = useGuests();
+  const { isLoading, count = 0, guests = [] } = useAllGuest();
   if (isLoading) return <Spinner />;
 
   return (
@@ -26,7 +26,7 @@ function GuestTable() {
         />
 
         <Table.Footer>
-          <Pagination/>
+          <Pagination count={count} />
         </Table.Footer>
       </Table>
     </Menus>

@@ -61,13 +61,13 @@ function BookingRow({
     cabins: { name: cabinName },
   },
 }) {
-  const navigate = useNavigate();
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
     "checked-out": "silver",
   };
 
+  const navigate = useNavigate();
   const { isCheckOut, checkout } = useCheckout();
   const { isDeleting, deleteBooking } = useDeleteBooking();
 

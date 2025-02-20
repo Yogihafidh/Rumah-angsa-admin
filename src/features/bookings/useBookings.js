@@ -32,7 +32,7 @@ export function useAllBooking() {
     keepPreviousData: true,
   });
 
-  // Prefatching
+  // Prefatching - fatching data before komponen render
   const pageCount = Math.ceil(count / PAGE_SIZE);
 
   if (page < pageCount)
