@@ -14,6 +14,7 @@ export function useAllGuest() {
   // Check if the filter is upcoming
   const isUpcoming = filterValue?.includes("upcoming");
 
+  // Create filter object
   const filter =
     !filterValue || filterValue === "all"
       ? null

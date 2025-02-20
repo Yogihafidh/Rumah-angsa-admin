@@ -119,19 +119,6 @@ function GuestForm({ guestToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
-      {/* {isEditSession && (
-        <FormRow label="Nationality" error={errors?.nationality?.message}>
-          <Input
-            type="text"
-            id="nationality"
-            disabled={isWorking}
-            {...register("nationality", {
-              required: "This field is required",
-            })}
-          />
-        </FormRow>
-      )} */}
-
       <FormRow>
         <Button
           variant="secondary"

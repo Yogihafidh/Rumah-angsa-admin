@@ -31,7 +31,8 @@ const Number = styled.div`
   font-weight: 600;
 `;
 
-function GuestRow({ guest }) {
+// In parameter function separate booking properti
+function GuestRow({ guest: { bookings, ...guest } }) {
   const {
     id: guestId,
     fullName,

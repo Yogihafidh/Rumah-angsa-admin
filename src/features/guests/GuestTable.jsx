@@ -7,6 +7,7 @@ import { useAllGuest } from "./useGuests";
 
 function GuestTable() {
   const { isLoading, count = 0, guests = [] } = useAllGuest();
+
   if (isLoading) return <Spinner />;
 
   return (
