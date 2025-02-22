@@ -10,11 +10,7 @@ export function useAllGuest() {
 
   // Filter Guest
   const filterValue = searchParams.get("startDate");
-
-  // Check if the filter is upcoming
-  const isUpcoming = filterValue?.includes("upcoming");
-
-  // Create filter object
+  const isUpcoming = filterValue?.includes("upcoming"); // Check if the filter is upcoming
   const filter =
     !filterValue || filterValue === "all"
       ? null
@@ -24,7 +20,7 @@ export function useAllGuest() {
             ? filterValue.split("-").slice(0, -1).join("-")
             : filterValue,
           method: isUpcoming ? "gt" : "eq",
-        };
+        }; // Create filter object
 
   const {
     isLoading,

@@ -2,16 +2,19 @@ import { PAGE_SIZE } from "../utils/constant";
 import supabase from "./supabase";
 
 export async function getAllGuests({ page, filter }) {
+  // inner berarti menggunakan INNER JOIN, sehingga hanya akan mengembalikan guest yang memiliki booking (data guests tanpa booking tidak akan muncul).
+  let selestQuery =
+    filter === null
+      ? "id, fullName, email, nationalID, nationality, countryFlag"
+      : "id, fullName, email, nationalID, nationality, countryFlag, bookings!inner(startDate)";
+
   // Query
   let query = supabase
     .from("guests")
-    .select(
-      "id, fullName, email, nationalID, nationality, countryFlag, bookings!inner(startDate)",
-      {
-        // Get data count from supabase
-        count: "exact",
-      }
-    ) // Sorting default
+    .select(selestQuery, {
+      // Get data count from supabase
+      count: "exact",
+    }) // Sorting default
     .order("created_at", { ascending: false });
 
   // Filter

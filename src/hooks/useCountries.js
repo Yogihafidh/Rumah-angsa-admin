@@ -11,13 +11,13 @@ export function useCountries() {
         const data = await response.json();
         const countryOptions = Object.keys(data)
           .map((code) => ({
-            value: code,
+            value: data[code],
             label: data[code],
             flagUrl: `https://flagcdn.com/${code}.svg`,
             key: `${code}-${Math.random()}`,
           }))
           .sort((a, b) => a.label.localeCompare(b.label));
-          
+
         setCountries(countryOptions);
       } catch (err) {
         console.error("Error fetching country flags:", err);

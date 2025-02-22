@@ -1,4 +1,5 @@
 import Filter from "../../ui/Filter";
+import SortBy from "../../ui/SortBy";
 import TableOperations from "../../ui/TableOperations";
 import { getToday } from "../../utils/helpers";
 
@@ -14,6 +15,13 @@ function GuestTableOprations() {
             label: "Booking starting today",
           },
           { value: `${getToday()}-upcoming`, label: "Upcoming bookings" },
+        ]}
+      />
+
+      <SortBy
+        options={[
+          { value: "fullName-desc", label: "Nama (A - Z)" },
+          { value: "fullName-asc", label: "Nama (Z - A)" },
         ]}
       />
     </TableOperations>
