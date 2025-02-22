@@ -1,7 +1,7 @@
 import { PAGE_SIZE } from "../utils/constant";
 import supabase from "./supabase";
 
-export async function getAllGuests({ page, filter }) {
+export async function getAllGuests({ page, filter, sortBy }) {
   // inner berarti menggunakan INNER JOIN, sehingga hanya akan mengembalikan guest yang memiliki booking (data guests tanpa booking tidak akan muncul).
   let selestQuery =
     filter === null
@@ -14,7 +14,7 @@ export async function getAllGuests({ page, filter }) {
     .select(selestQuery, {
       // Get data count from supabase
       count: "exact",
-    }) // Sorting default
+    })
     .order("created_at", { ascending: false });
 
   // Filter
@@ -22,8 +22,15 @@ export async function getAllGuests({ page, filter }) {
     query = query[filter.method || "eq"](filter.field, filter.value);
   }
 
-  // Pagination
+  // Sorting
+  if (sortBy) {
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === "asc",
+    });
+  }
+
   if (page) {
+    // Pagination
     const from = (page - 1) * PAGE_SIZE;
     const to = from + PAGE_SIZE - 1;
     query = query.range(from, to);

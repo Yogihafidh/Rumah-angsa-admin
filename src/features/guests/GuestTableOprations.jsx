@@ -20,8 +20,8 @@ function GuestTableOprations() {
 
       <SortBy
         options={[
-          { value: "fullName-desc", label: "Nama (A - Z)" },
-          { value: "fullName-asc", label: "Nama (Z - A)" },
+          { value: "fullName-asc", label: "Nama (A - Z)" },
+          { value: "fullName-desc", label: "Nama (Z - A)" },
         ]}
       />
     </TableOperations>

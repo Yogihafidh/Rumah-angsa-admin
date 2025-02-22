@@ -1,10 +1,9 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getAllGuests } from "../../services/apiGuests";
 import { useSearchParams } from "react-router-dom";
-import { PAGE_SIZE } from "../../utils/constant";
 
 export function useAllGuest() {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
@@ -22,31 +21,20 @@ export function useAllGuest() {
           method: isUpcoming ? "gt" : "eq",
         }; // Create filter object
 
+  // Sorting Guest
+  const sortByRaw = searchParams.get("sortBy") || "fullName-asc";
+  const [field, direction] = sortByRaw.split("-");
+  const sortBy = { field, direction };
+
   const {
     isLoading,
     error,
     data: { data: guests, count } = {},
   } = useQuery({
-    queryFn: () => getAllGuests({ page, filter }),
-    queryKey: ["guests", page, filter],
+    queryFn: () => getAllGuests({ page, filter, sortBy }),
+    queryKey: ["guests", page, filter, sortBy],
+    placeholderData: keepPreviousData,
   });
-
-  // Pre-fatching guest data in pagenation
-  const pageCount = Math.ceil(count / PAGE_SIZE);
-
-  if (page < pageCount) {
-    queryClient.prefetchQuery({
-      queryKey: ["guests", page + 1, filter],
-      queryFn: () => getAllGuests({ page: page + 1, filter }),
-    });
-  }
-
-  if (page > 1) {
-    queryClient.prefetchQuery({
-      queryKey: ["guests", page - 1, filter],
-      queryFn: () => getAllGuests({ page: page - 1, filter }),
-    });
-  }
 
   return { isLoading, guests, count, error };
 }
