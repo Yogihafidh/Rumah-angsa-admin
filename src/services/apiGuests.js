@@ -1,6 +1,20 @@
 import { PAGE_SIZE } from "../utils/constant";
 import supabase from "./supabase";
 
+export async function getGuestToSelect() {
+  const { data, error } = await supabase
+    .from("guests")
+    .select("id, fullName")
+    .order("fullName", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    throw new Error("Guests could not be loaded");
+  }
+
+  return data;
+}
+
 export async function getAllGuests({ page, filter, sortBy }) {
   // inner berarti menggunakan INNER JOIN, sehingga hanya akan mengembalikan guest yang memiliki booking (data guests tanpa booking tidak akan muncul).
   let selestQuery =
