@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-// BookingPDF.jsx
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
