@@ -19,7 +19,7 @@ import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useDeleteBooking } from "./useDeleteBooking";
 import Empty from "../../ui/Empty";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import BookingPDF from "./BookingPdf";
+import BookingPDF from "./BookingPDF";
 
 const HeadingGroup = styled.div`
   display: flex;
