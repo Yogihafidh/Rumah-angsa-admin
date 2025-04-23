@@ -1,8 +1,10 @@
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function getCabin() {
+  // Get cabins data from the database using Supabase's query builder.
   const { data, error } = await supabase.from("cabins").select("*");
 
+  // Check if there was an error fetching cabins data.
   if (error) {
     console.error(error);
     throw new Error("Cabins could not be loaded");
@@ -12,8 +14,13 @@ export async function getCabin() {
 }
 
 export async function createCabin(newCabin) {
+  // Mengecek apakah image yang diberikan sudah memiliki path dari Supabase
   const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl);
+
+  // Membuat nama unik untuk image dengan menambahkan angka random di depannya serta memastikan tidak ada karakter "/" dalam nama file
   const imageName = `${Math.random()}-${newCabin.image.name}`.replace("/", "");
+
+  // Jika image sudah memiliki path dari Supabase, gunakan path tersebut. Jika tidak, buat path baru untuk penyimpanan di Supabase Storage
   const imagePath = hasImagePath
     ? newCabin.image
     : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
@@ -21,7 +28,7 @@ export async function createCabin(newCabin) {
   // 1. Create Cabin
   const { data, error } = await supabase
     .from("cabins")
-    .insert([{ ...newCabin, image: imagePath }])
+    .insert([{ ...newCabin, image: imagePath }]) // Menyimpan cabin dengan path gambar yang baru
     .select();
 
   if (error) {
@@ -29,7 +36,7 @@ export async function createCabin(newCabin) {
     throw new Error("Cabins could not be created");
   }
 
-  // 2. Upload image
+  // 2. Mengunggah image ke Supabase Storage pada folder "cabin-images"
   const { error: storageError } = await supabase.storage
     .from("cabin-images")
     .upload(imageName, newCabin.image);
@@ -47,8 +54,13 @@ export async function createCabin(newCabin) {
 }
 
 export async function updateCabin(cabin) {
+  // Mengecek apakah gambar yang diberikan sudah memiliki path dari Supabase
   const hasImagePath = cabin.image?.startsWith?.(supabaseUrl);
+
+  // Membuat nama unik untuk image dengan menambahkan angka random di depannya serta memastikan tidak ada karakter "/" dalam nama file
   const imageName = `${Math.random()}-${cabin.image.name}`.replace("/", "");
+
+  // Jika image sudah memiliki path dari Supabase, gunakan path tersebut. Jika tidak, buat path baru untuk penyimpanan di Supabase Storage
   const imagePath = hasImagePath
     ? cabin.image
     : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
@@ -56,8 +68,8 @@ export async function updateCabin(cabin) {
   // 1. Update Cabin
   const { data, error } = await supabase
     .from("cabins")
-    .update({ ...cabin, image: imagePath })
-    .eq("id", cabin.id)
+    .update({ ...cabin, image: imagePath }) // Update cabin dengan path gambar yang baru
+    .eq("id", cabin.id) // Update cabin berdasarkan id
     .select();
 
   if (error) {
@@ -65,10 +77,10 @@ export async function updateCabin(cabin) {
     throw new Error("Cabins could not be update");
   }
 
-  // 2. Upload new image
+  // 2. Jika gambar tidak berubah (sudah ada path dari Supabase), langsung kembalikan data
   if (hasImagePath) return data;
 
-  // Upload new image
+  // 3. Upload gambar baru ke Supabase Storage pada folder "cabin-images"
   const { error: storageError } = await supabase.storage
     .from("cabin-images")
     .upload(imageName, cabin.image);

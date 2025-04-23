@@ -19,10 +19,11 @@ import AppLayout from "./ui/AppLayout";
 import Checkin from "./pages/Checkin";
 import ProtectedRoute from "./ui/ProtectedRoute";
 
+// 1. Membuat tempat dimana data ditempatkan (live).
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000,
+      staleTime: 60 * 1000, // jumlah waktu (ms) sebelum query dianggap "usang" dan perlu di-fetch ulang
     },
   },
 });
@@ -30,7 +31,9 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <DarkModeProvider>
+      {/* 2. Provide ke seluruh aplikasi. */}
       <QueryClientProvider client={queryClient}>
+        {/* 3. Setting react query dev tools */}
         <ReactQueryDevtools initialIsOpen={false} />
         <GlobalStyles />
         <BrowserRouter>

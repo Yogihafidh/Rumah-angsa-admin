@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 
 const Form = styled.form`
+  border: 1px solid var(--color-grey-300);
+
   ${(props) =>
     props.type === "regular" &&
     css`

@@ -6,6 +6,7 @@ import Input from "../../ui/Input";
 import SpinnerMini from "../../ui/SpinnerMini";
 import FormRowVertical from "../../ui/FormRowVertical";
 import { useLogin } from "./useLogin";
+import Heading from "../../ui/Heading";
 
 function LoginForm() {
   const [email, setEmail] = useState("yogidemo@demo.com");
@@ -29,6 +30,8 @@ function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <Heading as="h4">Login akun anda</Heading>
+
       <FormRowVertical label="Email address">
         <Input
           type="email"
@@ -40,6 +43,7 @@ function LoginForm() {
           disabled={isLoading}
         />
       </FormRowVertical>
+
       <FormRowVertical label="Password">
         <Input
           type="password"
@@ -50,6 +54,7 @@ function LoginForm() {
           disabled={isLoading}
         />
       </FormRowVertical>
+
       <FormRowVertical>
         <Button size="large" disabled={isLoading}>
           {!isLoading ? "Login" : <SpinnerMini />}

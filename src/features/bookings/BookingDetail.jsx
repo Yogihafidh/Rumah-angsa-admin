@@ -18,6 +18,8 @@ import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useDeleteBooking } from "./useDeleteBooking";
 import Empty from "../../ui/Empty";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import BookingPDF from "./BookingPdf";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -63,13 +65,30 @@ function BookingDetail() {
         )}
 
         {status === "checked-in" && (
-          <Button
-            icon={<HiArrowUpOnSquare />}
-            onClick={() => checkout(bookingId)}
-            disabled={isCheckOut}
-          >
-            Check Out
-          </Button>
+          <>
+            <Button
+              icon={<HiArrowUpOnSquare />}
+              onClick={() => checkout(bookingId)}
+              disabled={isCheckOut}
+            >
+              Check Out
+            </Button>
+
+            <PDFDownloadLink
+              document={<BookingPDF booking={booking} />}
+              fileName={`booking-${booking.guests.fullName}.pdf`}
+            >
+              {({ loading }) =>
+                loading ? (
+                  "Preparing PDF..."
+                ) : (
+                  <Button icon={<HiArrowUpOnSquare />} disabled={isCheckOut}>
+                    Download Invoice
+                  </Button>
+                )
+              }
+            </PDFDownloadLink>
+          </>
         )}
 
         <Modal>
@@ -78,6 +97,7 @@ function BookingDetail() {
               Delete Booking
             </Button>
           </Modal.Open>
+
           <Modal.Window name="delete">
             <ConfirmDelete
               resourceName="booking"

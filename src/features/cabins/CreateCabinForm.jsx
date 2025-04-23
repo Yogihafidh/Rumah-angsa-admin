@@ -26,6 +26,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   // const currentImage = getImageNameFromUrl(editValues.image);
 
   function onSubmit(data) {
+    // Mengirim objek yang mengandung image file yaitu pada baris 0
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
     if (isEditSession)
