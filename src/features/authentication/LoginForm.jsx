@@ -10,7 +10,7 @@ import Heading from "../../ui/Heading";
 
 function LoginForm() {
   const [email, setEmail] = useState("yogidemo@demo.com");
-  const [password, setPassword] = useState("admin123");
+  const [password, setPassword] = useState("yogidemo");
   const { login, isLoading } = useLogin();
 
   function handleSubmit(e) {

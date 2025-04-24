@@ -9,7 +9,7 @@ const LoginLayout = styled.main`
   align-content: center;
   justify-content: center;
   gap: 3.2rem;
-  background-color: white;
+  background-color: var(--color-grey-0);
 `;
 
 function Login() {
