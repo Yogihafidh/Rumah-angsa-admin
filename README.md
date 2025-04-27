@@ -4,7 +4,6 @@ Developed as part of the Software Construction course project at Telkom Universi
 Located at the foothills of Mount Slamet in Bumijawa GUCCI, Rumah Angsa Glamping offers a luxurious camping experience in nature, and this application serves as the primary solution to support smooth daily operations — from updating cabin details and monitoring booking statuses to analyzing occupancy trends. With its modern and intuitive user interface, the system ensures a seamless experience for glamping management.
 
 # Key Features
-
 - User Authentication: Only authorised hotel employees can access the system.
 - Profile Management: Employees can update their profiles, upload avatars, and change passwords.
 - Dashboard: Displays real-time statistics, including bookings, check-ins, and sales.
@@ -15,7 +14,6 @@ Located at the foothills of Mount Slamet in Bumijawa GUCCI, Rumah Angsa Glamping
 - Dark Mode: Customisable UI for better user experience.
 
 # Technologies
-
 - Frontend: React, Styled Components (with dark mode).
 - Backend: Supabase (database, authentication, real-time updates).
 - Data Handling: React Query for efficient fetching and caching.
@@ -23,19 +21,6 @@ Located at the foothills of Mount Slamet in Bumijawa GUCCI, Rumah Angsa Glamping
 - Forms: React Hook Form.
 - Data Visualization: Recharts for interactive charts and stats.
 - Development: Vite for a modern development environment.
-
-# Getting Started
-
-Follow these steps to run the project locally:
-
-1. Clone the repository: `git clone https://github.com/CodeWithAlamin/The-Wild-Oasis.git`
-2. Install dependencies: `npm install`
-3. Set up environment variables:
-
-- Configure Supabase and add the necessary variables to a .env file.
-- Use .env.example as a reference.
-
-4. Start the development server: `npm run dev `. The app will be available at http://localhost:3000.
 
 # Documentation
 Dark-Mode feature
